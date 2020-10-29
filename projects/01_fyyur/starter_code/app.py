@@ -224,15 +224,16 @@ def create_venue_submission():
   city = request.form['city']
   state = request.form['state']
   phone = request.form['phone']
-  website = True if 'website' in request.form else False
+  website = request.form['website']
   genres = request.form.getlist('genres')
   address = request.form['address']
+  image_link = request.form['image_link']
   facebook_link = request.form['facebook_link']
   seeking_talent = True if 'seeking_talent' in request.form else False
-  seeking_description = True if 'seeking_description' in request.form else False
+  seeking_description = request.form['seeking_description']
 
   try:
-    venue = Venue(name =name, city = city, state = state, phone = phone, website = website, genres = genres, address = address, facebook_link = facebook_link, seeking_talent = seeking_talent, seeking_description = seeking_description)
+    venue = Venue(name =name, city = city, state = state, phone = phone, website = website, genres = genres, address = address, image_link = image_link, facebook_link = facebook_link, seeking_talent = seeking_talent, seeking_description = seeking_description)
     db.session.add(venue)
     db.session.commit()
   except:
@@ -467,15 +468,15 @@ def create_artist_form():
 def create_artist_submission():
   error = False
   name = request.form['name']
-  genres = request.form['genres']
+  genres = request.form.getlist('genres')
   city = request.form['city']
   state = request.form['state']
   phone = request.form['phone']
-  website = True if 'website' in request.form else False
+  website = request.form['website']
   facebook_link = request.form['facebook_link']
   seeking_venue = True if 'seeking_venue' in request.form else False
-  seeking_description = True if 'seeking_description' in request.form else False
-  image_link = True if 'image_link' in request.form else False
+  seeking_description = request.form['seeking_description']
+  image_link = request.form['image_link']
   try:
     artist = Artist(name = name, genres = genres, city = city, state = state, phone = phone, website = website, facebook_link = facebook_link, seeking_venue = seeking_venue, seeking_description = seeking_description, image_link = image_link)
     db.session.add(artist)
